@@ -1,17 +1,22 @@
-﻿using AccountingSystem.Models;
+﻿using System;
+using System.Collections.Generic;
+using AccountingSystem.Models;
 
 namespace AccountingSystem
 {
+
+  /// <summary>
+  /// Представление для отображения информации о сотрудниках.
+  /// </summary>
   public class EmployeeView
   {
 
-    #region
+    #region Ввод данных с консоли для сотрудника с фиксированной ставкой.
 
     /// <summary>
     /// Ввод данных с консоли для сотрудника с фиксированной ставкой.
     /// </summary>
     /// <returns>Имя, базовая ставка.</returns>
-    /// 
     public Employee AddFullEmployee()
     {
         Console.WriteLine($"Введите имя");
@@ -25,13 +30,12 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Ввод данных с консоли для сотрудника с почасовой ставкой.
 
     /// <summary>
     /// Ввод данных с консоли для сотрудника с почасовой ставкой.
     /// </summary>
     /// <returns>Имя, базовая ставка, отработанное время.</returns>
-    /// 
     public Employee AddPartEmployee()
     {
       Console.WriteLine($"Введите имя");
@@ -48,13 +52,12 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Вывод на консоль списка сотрудников.
 
     /// <summary>
     /// Вывод на консоль списка сотрудников.
     /// </summary>
     /// <param name="listEmployee">Список сотрудников.</param>
-
     public void GetEmployeeList(List<Employee> listEmployee)
     {
       Console.WriteLine("Список сотрудников");
@@ -67,13 +70,12 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Ввод имени с консоли.
 
     /// <summary>
     /// Ввод имени с консоли.
     /// </summary>
     /// <returns>Имя.</returns>
-    /// 
     public string DisplayInfoEmployee()
     {
       Console.WriteLine($"Введите имя");
@@ -83,13 +85,12 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Ввод ID  с консоли.
 
     /// <summary>
     /// Ввод ID  с консоли.
     /// </summary>
     /// <returns>ID</returns>
-
     public int DisplayIdEmployee()
     {
       Console.WriteLine($"Введите ID сотрудника");
@@ -99,13 +100,12 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Вывод на консоль информационное сообщение.
 
     /// <summary>
     /// Вывод на консоль информационное сообщение.
     /// </summary>
     /// <param name="message">Сообщение.</param>
-
     public void DisplayMessage(string message)
     {
       Console.WriteLine(message + "\n");
@@ -113,7 +113,7 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Вывод на консоль сообщения об ошибке.
 
     /// <summary>
     /// Вывод на консоль сообщения об ошибке.

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 namespace AccountingSystem.EmployeeException
+
 {
   public class EmployeeException : Exception
   {

@@ -1,25 +1,37 @@
-﻿using AccountingSystem.Models;
+﻿using System;
+using System.Collections.Generic;
+using AccountingSystem.Models;
 using AccountingSystem.Repositories;
 
 namespace AccountingSystem
 {
+
+  /// <summary>
+  /// Контроллер для управления сотрудниками.
+  /// </summary>
   public class EmployeeController
   {
+
+    #region Поля
+    /// <summary>
+    /// Менеджер для работы с данными сотрудников.
+    /// </summary>
     private readonly IEmployeeManager<Employee> employeeManager;
+
+    /// <summary>
+    /// Представление для отображения информации о сотрудниках.
+    /// </summary>
     private readonly EmployeeView employeeView;
 
-    public EmployeeController(IEmployeeManager<Employee> employeeManager)
-    {
-      this.employeeManager = employeeManager;
-      employeeView = new EmployeeView();
-    }
+    #endregion
 
-    #region
+    #region Методы
+
+    #region Добавить сотрудника с фиксированым окладом.
 
     /// <summary>
     /// Добавить сотрудника с фиксированым окладом.
     /// </summary>
-
     public void AddFullEmployee()
     {
       try
@@ -40,12 +52,11 @@ namespace AccountingSystem
 
     #endregion 
 
-    #region
+    #region Добавить сотрудника с почасовой окладом.
 
     /// <summary>
     /// Добавить сотрудника с почасовой окладом.
     /// </summary>
-
     public void AddPartEmployee()
     {
       try
@@ -66,12 +77,11 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Получить информацию о сотрудниках по имени.
 
     /// <summary>
     /// Получить информацию о сотрудниках по имени.
     /// </summary>
-
     public void GetInfoEmployee()
     {
       try
@@ -90,7 +100,7 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Обновить данные сотрудника.
 
     /// <summary>
     /// Обновить данные сотрудника.
@@ -122,7 +132,7 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Получить всех сотрудников.
 
     /// <summary>
     /// Получить всех сотрудников.
@@ -144,12 +154,11 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Удалить данные сотрудника.
 
     /// <summary>
     /// Удалить данные сотрудника.
     /// </summary>
-
     public void DeleteEmployee()
     {
       try
@@ -171,7 +180,7 @@ namespace AccountingSystem
 
     #endregion
 
-    #region
+    #region Вывод сообщения об ошибке на консоль
 
     /// <summary>
     /// Вывод сообщения об ошибке на консоль
@@ -181,6 +190,22 @@ namespace AccountingSystem
       {
         employeeView.DisplayErrorMessage(message);
       }
+
+    #endregion
+
+    #endregion
+
+    #region Конструкторы
+
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="employeeManager">Менеджер для работы с данными сотрудников.</param>
+    public EmployeeController(IEmployeeManager<Employee> employeeManager)
+    {
+      this.employeeManager = employeeManager;
+      employeeView = new EmployeeView();
+    }
 
     #endregion
   }

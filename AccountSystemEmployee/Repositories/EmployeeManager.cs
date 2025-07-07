@@ -1,21 +1,37 @@
-﻿using AccountingSystem.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AccountingSystem.Models;
 
 namespace AccountingSystem.Repositories
 {
+  /// <summary>
+  /// Менеджер для управления списком сотрудников.
+  /// </summary>
   public class EmployeeManager : IEmployeeManager<Employee>
   {
-    private readonly List<Employee> employees = new List<Employee>();
+    #region Поля
+
+    /// <summary>
+    /// Список для хранения информации о сотрудниках.
+    /// </summary>
+    private readonly List<Employee> employees = [];
+
+    /// <summary>
+    /// Идентификатор для присвоения следующему сотруднику.
+    /// </summary>
     private int nextId = 1;
 
-    public EmployeeManager() { }
+    #endregion
 
-    #region
+    #region Методы
+
+    #region Сформировать весь список сотрудников.
 
     /// <summary>
     /// Сформировать весь список сотрудников.
     /// </summary>
     /// <returns>Список сотрудников.</returns>
-
     public List<Employee> GetAllEmployee()
     {
       return employees.ToList();
@@ -23,13 +39,12 @@ namespace AccountingSystem.Repositories
 
     #endregion
 
-    #region
+    #region Добавление нового сотрудника.
 
     /// <summary>
     /// Добавление нового сотрудника.
     /// </summary>
     /// <param name="employee">Данные сотрудника.</param>
-
     public void AddEmployee(Employee employee)
     {
       employees.Add(employee);
@@ -38,14 +53,13 @@ namespace AccountingSystem.Repositories
 
     #endregion
 
-    #region
+    #region Получение информации о сотруднике по имени.
 
     /// <summary>
     /// Получение информации о сотруднике по имени.
     /// </summary>
     /// <param name="name">Имя сотрудника.</param>
-    /// <returns>Данные сотрудника.</returns>
-    
+    /// <returns>Данные найденного сотрудника.</returns>
     public List<Employee> GetEmployeeByName(string name)
     {
       return employees.Where(e => e.Name.ToLower() == name.ToLower()).ToList();
@@ -53,14 +67,13 @@ namespace AccountingSystem.Repositories
 
     #endregion
 
-    #region
+    #region Получение информации о сотруднике по ID.
 
     /// <summary>
     /// Получение информации о сотруднике по ID.
     /// </summary>
     /// <param name="id">ID сотрудника.</param>
-    /// <returns>Данные сотруднкиа.</returns>
-
+    /// <returns>Данные найденного сотруднкиа.</returns>
     public Employee GetEmployeeById(int id)
     {
       return employees.FirstOrDefault(employees => employees.Id == id);
@@ -68,14 +81,13 @@ namespace AccountingSystem.Repositories
 
     #endregion
 
-    #region
+    #region Обновление данных сотрудника.
 
     /// <summary>
     /// Обновление данных сотрудника.
     /// </summary>
     /// <param name="employee">Обновленные данные.</param>
     /// <param name="id">ID сортрудника.</param>
-
     public void UpdateEmployee(Employee employee, int id)
     {
       var existingEmployee = employees.FirstOrDefault(employees => employees.Id == id);
@@ -101,17 +113,27 @@ namespace AccountingSystem.Repositories
 
     #endregion
 
-    #region
+    #region Удаление данных сотрудника.
 
     /// <summary>
-    /// Удаление данных сотрудника
+    /// Удаление данных сотрудника.
     /// </summary>
-    /// <param name="employee"></param>
-
+    /// <param name="employee">Сотрудник которого нужно удлаить.</param>
     public void DeleteEmployee(Employee employee)
     {
       employees.Remove(employee);
     }
+
+    #endregion
+
+    #endregion
+
+    #region Конструкторы
+
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    public EmployeeManager() { }
 
     #endregion
   }

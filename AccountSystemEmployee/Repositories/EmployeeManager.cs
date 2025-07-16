@@ -10,7 +10,7 @@ namespace AccountingSystem.Repositories
   /// </summary>
   public class EmployeeManager : IEmployeeManager<Employee>
   {
-    #region Поля
+    #region Поля и свойства
 
     /// <summary>
     /// Список для хранения информации о сотрудниках.

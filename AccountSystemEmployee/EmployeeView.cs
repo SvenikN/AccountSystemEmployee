@@ -4,12 +4,12 @@ using AccountingSystem.Models;
 
 namespace AccountingSystem
 {
-
   /// <summary>
   /// Представление для отображения информации о сотрудниках.
   /// </summary>
   public class EmployeeView
   {
+    #region Методы
 
     #region Ввод данных с консоли для сотрудника с фиксированной ставкой.
 
@@ -124,6 +124,8 @@ namespace AccountingSystem
       Console.WriteLine(message + "\n");
     }
   }
+
+  #endregion
 
   #endregion
 }

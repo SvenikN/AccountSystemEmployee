@@ -8,14 +8,18 @@ namespace AccountingSystem.Models
   public class FullTimeEmployee : Employee
   {
 
-    #region Поля
-
-    public override string Name { get; set; } = "";
+    #region Поля и свойства
 
     /// <summary>
     /// Базовая ставка сотрудника.
     /// </summary>
     public override decimal BaseSalary { get; set; }
+
+    #endregion
+
+    #region Базовый класс
+
+    public override string Name { get; set; } = "";
 
     #endregion
 

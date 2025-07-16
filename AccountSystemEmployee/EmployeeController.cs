@@ -5,14 +5,13 @@ using AccountingSystem.Repositories;
 
 namespace AccountingSystem
 {
-
   /// <summary>
   /// Контроллер для управления сотрудниками.
   /// </summary>
   public class EmployeeController
   {
+    #region Поля и свойства
 
-    #region Поля
     /// <summary>
     /// Менеджер для работы с данными сотрудников.
     /// </summary>

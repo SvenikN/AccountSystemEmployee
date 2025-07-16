@@ -7,9 +7,7 @@ namespace AccountingSystem.Models
   /// </summary>
   public class PartTimeEmployee : Employee
   {
-    #region Поля
-
-    public override string Name { get; set; } = "";
+    #region Поля и свойства
 
     /// <summary>
     /// Часовая ставка.
@@ -23,6 +21,12 @@ namespace AccountingSystem.Models
 
     #endregion
 
+    #region Базовый класс
+
+    public override string Name { get; set; } = "";
+
+    #endregion
+
     #region Методы
 
     public override decimal CalculateSalary()
@@ -33,6 +37,7 @@ namespace AccountingSystem.Models
     #endregion
 
     #region Конструкторы
+
     /// <summary>
     /// Конструктор.
     /// </summary>
@@ -40,6 +45,7 @@ namespace AccountingSystem.Models
     {
       EmployeeType = EmployeeTypeEnum.PartTime;
     }
+
     #endregion
   }
 }

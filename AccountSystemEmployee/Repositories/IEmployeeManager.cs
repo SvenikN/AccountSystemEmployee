@@ -5,7 +5,6 @@ namespace AccountingSystem.Repositories
 {
   public interface IEmployeeManager<TEmployee>
   {
-
     /// <summary>
     /// Сформировать весь список сотрудников.
     /// </summary>

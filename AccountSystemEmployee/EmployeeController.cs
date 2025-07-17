@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AccountingSystem.Models;
 using AccountingSystem.Repositories;
+using AccountingSystem.EmployeeException;
 
 namespace AccountingSystem
 {
@@ -43,6 +44,11 @@ namespace AccountingSystem
       {
         employeeView.DisplayErrorMessage("Неверный формат данных.");
       }
+      catch (DuplicateEmployeeIdException ex)
+      {
+        employeeView.DisplayErrorMessage($"Произошло исключение: {ex.ExceptionName}. Сообщение: {ex.Message}");
+        employeeView.DisplayErrorMessage($"Некорректное значение: {ex.Value}");
+      }
       catch (Exception)
       {
         employeeView.DisplayErrorMessage("Произошла ошибка при добавлении сотрудника.");
@@ -51,10 +57,10 @@ namespace AccountingSystem
 
     #endregion 
 
-    #region Добавить сотрудника с почасовой окладом.
+    #region Добавить сотрудника с почасовым окладом.
 
     /// <summary>
-    /// Добавить сотрудника с почасовой окладом.
+    /// Добавить сотрудника с почасовым окладом.
     /// </summary>
     public void AddPartEmployee()
     {
@@ -67,6 +73,11 @@ namespace AccountingSystem
       catch (FormatException)
       {
         employeeView.DisplayErrorMessage("Неверный формат данных.");
+      }
+      catch (DuplicateEmployeeIdException ex)
+      {
+        employeeView.DisplayErrorMessage($"Произошло исключение: {ex.ExceptionName}. Сообщение: {ex.Message}");
+        employeeView.DisplayErrorMessage($"Некорректное значение: {ex.Value}");
       }
       catch (Exception)
       {
@@ -87,9 +98,11 @@ namespace AccountingSystem
       {
         var name = employeeView.DisplayInfoEmployee();
         List<Employee> listEmployee = employeeManager.GetEmployeeByName(name);
-        if (listEmployee != null && listEmployee.Count > 0)
-          employeeView.GetEmployeeList(listEmployee);
-        else employeeView.DisplayMessage("Не найдено");
+        employeeView.GetEmployeeList(listEmployee);
+      }
+      catch (ArgumentException ex)
+      {
+        employeeView.DisplayErrorMessage(ex.Message);
       }
       catch (Exception)
       {
@@ -111,17 +124,22 @@ namespace AccountingSystem
         var id = employeeView.DisplayIdEmployee();
         var em = employeeManager.GetEmployeeById(id);
         Employee newEmployee;
-        if (em != null)
-        {
-          if (em.EmployeeType == EmployeeTypeEnum.FullTime)
-            newEmployee = employeeView.AddFullEmployee();
-          else
-            newEmployee = employeeView.AddPartEmployee();
 
-          employeeManager.UpdateEmployee(newEmployee, id);
-          employeeView.DisplayMessage("Данные сохранены");
-        }
-        else employeeView.DisplayMessage("Не найдено");
+        if (em.EmployeeType == EmployeeTypeEnum.FullTime)
+          newEmployee = employeeView.AddFullEmployee();
+        else
+          newEmployee = employeeView.AddPartEmployee();
+
+        employeeManager.UpdateEmployee(newEmployee, id);
+        employeeView.DisplayMessage("Данные сохранены");
+      }
+      catch (FormatException)
+      {
+        employeeView.DisplayErrorMessage("Неверный формат данных.");
+      }
+      catch (EmployeeIdNotFoundException ex)
+      {
+        employeeView.DisplayErrorMessage(ex.Message);
       }
       catch (Exception)
       {
@@ -141,9 +159,9 @@ namespace AccountingSystem
       try
       {
         var em = employeeManager.GetAllEmployee();
-        if (em != null)
+        if (em.Count != 0)
           employeeView.GetEmployeeList(em);
-        else employeeView.DisplayMessage("Не найдено");
+        else employeeView.DisplayMessage("Список сотрудников пустой.");
       }
       catch (Exception)
       {
@@ -163,13 +181,17 @@ namespace AccountingSystem
       try
       {
         var id = employeeView.DisplayIdEmployee();
-        var em = employeeManager.GetEmployeeById(id);
-        if (em != null)
-        {
-          employeeManager.DeleteEmployee(em);
-          employeeView.DisplayMessage("Данные удалены");
-        }
-        else employeeView.DisplayMessage("Не найдено");
+        employeeManager.DeleteEmployee(id);
+        employeeView.DisplayMessage("Данные удалены");
+      }
+      catch (FormatException)
+      {
+        employeeView.DisplayErrorMessage("Неверный формат данных.");
+      }
+      catch (DeleteEmployeeIdException ex)
+      {
+        employeeView.DisplayErrorMessage($"Произошло исключение: {ex.ExceptionName}. Сообщение: {ex.Message}");
+        employeeView.DisplayErrorMessage($"Некорректное значение: {ex.Value}");
       }
       catch (Exception)
       {

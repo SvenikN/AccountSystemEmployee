@@ -121,7 +121,7 @@ namespace AccountingSystem
     /// <param name="message">Сообщение об ошибке.</param>
     public void DisplayErrorMessage(string message)
     {
-      Console.WriteLine(message + "\n");
+      Console.WriteLine(message);
     }
   }
 

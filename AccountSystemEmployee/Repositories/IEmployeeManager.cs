@@ -42,6 +42,6 @@ namespace AccountingSystem.Repositories
     /// Удаление данных сотрудника.
     /// </summary>
     /// <param name="employee">Данные сотрудника которого нужно удалить.</param>
-    void DeleteEmployee(TEmployee employee);
+    void DeleteEmployee(int id);
   }
 }

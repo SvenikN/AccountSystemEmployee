@@ -1,7 +1,8 @@
-﻿using System;
+﻿using AccountingSystem.EmployeeException;
+using AccountingSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AccountingSystem.Models;
 
 namespace AccountingSystem.Repositories
 {
@@ -47,8 +48,12 @@ namespace AccountingSystem.Repositories
     /// <param name="employee">Данные сотрудника.</param>
     public void AddEmployee(Employee employee)
     {
-      employees.Add(employee);
       employee.Id = nextId++;
+      if (employees.Any(e => e.Id == employee.Id))
+      {
+        throw new DuplicateEmployeeIdException("Сотрудник с ID уже существует.", employee.Id);
+      }
+      employees.Add(employee);
     }
 
     #endregion
@@ -62,7 +67,12 @@ namespace AccountingSystem.Repositories
     /// <returns>Данные найденного сотрудника.</returns>
     public List<Employee> GetEmployeeByName(string name)
     {
-      return employees.Where(e => e.Name.ToLower() == name.ToLower()).ToList();
+      List<Employee> foundEmployee = employees.Where(e => e.Name.ToLower() == name.ToLower()).ToList();
+      if (foundEmployee.Count == 0)
+      {
+        throw new ArgumentException($"Сотрудников с именем {name} не найден.");
+      }
+      return foundEmployee;
     }
 
     #endregion
@@ -76,7 +86,12 @@ namespace AccountingSystem.Repositories
     /// <returns>Данные найденного сотруднкиа.</returns>
     public Employee GetEmployeeById(int id)
     {
-      return employees.FirstOrDefault(employees => employees.Id == id);
+      var foundEmployee = employees.FirstOrDefault(e => e.Id == id);
+      if (foundEmployee == null)
+      {
+        throw new EmployeeIdNotFoundException($"Сотрудник c ID = {id} не найден.");
+      }
+      return foundEmployee;
     }
 
     #endregion
@@ -93,7 +108,7 @@ namespace AccountingSystem.Repositories
       var existingEmployee = employees.FirstOrDefault(employees => employees.Id == id);
       if (existingEmployee == null)
       {
-
+        throw new EmployeeIdNotFoundException($"Сотрудник c ID = {id} не найден.");
       }
       else
       {
@@ -118,10 +133,16 @@ namespace AccountingSystem.Repositories
     /// <summary>
     /// Удаление данных сотрудника.
     /// </summary>
-    /// <param name="employee">Сотрудник которого нужно удлаить.</param>
-    public void DeleteEmployee(Employee employee)
+    /// <param name="employee">Сотрудник которого нужно удалить.</param>
+    public void DeleteEmployee(int id)
     {
-      employees.Remove(employee);
+      var foundEmployee = employees.FirstOrDefault(e => e.Id == id);
+      if (foundEmployee == null)
+      {
+        throw new DeleteEmployeeIdException("Сотрудник c ID не найден.", id);
+      }
+
+      employees.Remove(foundEmployee);
     }
 
     #endregion
